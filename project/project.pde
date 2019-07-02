@@ -254,12 +254,8 @@ public void buildWords() {
     class Foreign{
         String name;
         int numOfSyllable;
-        // FINNISH, INDONESIAN, HUNGARIAN, ESTONIAN, CATALAN;
-        final Foreign [] FINNISH = new Foreign[16];
-        final Foreign [] INDONESIAN = new Foreign[16];
-        final Foreign [] HUGARIAN = new Foreign[16];
-        final Foreign [] ESTONIAN = new Foreign[16];
-        final Foreign [] CATALAN = new Foreign[16];
+        // CATALAN, INDONESIAN, FINNISH,  HUNGARIAN, ESTONIAN,
+
 
         public Foreign(String name, int numOfSyllable) {
             this.name = name;
@@ -270,9 +266,116 @@ public void buildWords() {
             this(name, 1);
         }
 
+        Foreign catalan1 = new Foreign("afecte");
+        Foreign catalan2 = new Foreign("ira");
+        Foreign catalan3 = new Foreign("amor");
+        Foreign catalan4 = new Foreign("ensurt");
+        Foreign catalan5 = new Foreign("senglar");
+        Foreign catalan6 = new Foreign("pollastre");
+        Foreign catalan7 = new Foreign("gos");
+        Foreign catalan8 = new Foreign("atac");
+        Foreign catalan9 = new Foreign("explosio");
+        Foreign catalan10 = new Foreign("lluita");
+        Foreign catalan11 = new Foreign("tir");
+        Foreign catalan12 = new Foreign("calenta");
+        Foreign catalan13 = new Foreign("fred");
+        Foreign catalan14 = new Foreign("fort");
+        Foreign catalan15 = new Foreign("por");
+        Foreign catalan16 = new Foreign("impressionant");
+
+
+        Foreign indonesian1 = new Foreign("sukacita");
+        Foreign indonesian2 = new Foreign("kemarahan");
+        Foreign indonesian3 = new Foreign("cinta");
+        Foreign indonesian4 = new Foreign("kepanikan");
+        Foreign indonesian5 = new Foreign("babi hutan");
+        Foreign indonesian6 = new Foreign("ayam");
+        Foreign indonesian7 = new Foreign("anjiny");
+        Foreign indonesian8 = new Foreign("serangan");
+        Foreign indonesian9 = new Foreign("ledakan");
+        Foreign indonesian10 = new Foreign("pertarungan");
+        Foreign indonesian11 = new Foreign("tembakan");
+        Foreign indonesian12 = new Foreign("panas");
+        Foreign indonesian13 = new Foreign("dingin");
+        Foreign indonesian14 = new Foreign("keras");
+        Foreign indonesian15 = new Foreign("mengerikan");
+        Foreign indonesian16 = new Foreign("luar biasa");
+
+
+        Foreign finnish1 = new Foreign("kiintymys");
+        Foreign finnish2 = new Foreign("viha");
+        Foreign finnish3 = new Foreign("rakkaus");
+        Foreign finnish4 = new Foreign("sokki");
+        Foreign finnish5 = new Foreign("rillisika");
+        Foreign finnish6 = new Foreign("kana");
+        Foreign finnish7 = new Foreign("koira");
+        Foreign finnish8 = new Foreign("hyokkays");
+        Foreign finnish9 = new Foreign("rajahdys");
+        Foreign finnish10 = new Foreign("kamppailu");
+        Foreign finnish11 = new Foreign("laukaus");
+        Foreign finnish12 = new Foreign("kuuma");
+        Foreign finnish13 = new Foreign("kylma");
+        Foreign finnish14 = new Foreign("aanekos");
+        Foreign finnish15 = new Foreign("pelottava");
+        Foreign finnish16 = new Foreign("mahtara");
+        
+
+        Foreign hungarian1 = new Foreign("vanzalan");
+        Foreign hungarian2 = new Foreign("harag");
+        Foreign hungarian3 = new Foreign("szerelem");
+        Foreign hungarian4 = new Foreign("ijedtseg");
+        Foreign hungarian5 = new Foreign("vaddiszno");
+        Foreign hungarian6 = new Foreign("tyuk");
+        Foreign hungarian7 = new Foreign("kutya");
+        Foreign hungarian8 = new Foreign("tamadas");
+        Foreign hungarian9 = new Foreign("robbanas");
+        Foreign hungarian10 = new Foreign("kuzdelem");
+        Foreign hungarian11 = new Foreign("loves");
+        Foreign hungarian12 = new Foreign("forro");
+        Foreign hungarian13 = new Foreign("hideg");
+        Foreign hungarian14 = new Foreign("hangos");
+        Foreign hungarian15 = new Foreign("ijedos");
+        Foreign hungarian16 = new Foreign("fnatasztikus");
 
 
 
+        Foreign estonian1 = new Foreign("kiindumus");
+        Foreign estonian2 = new Foreign("raev");
+        Foreign estonian3 = new Foreign("armastus");
+        Foreign estonian4 = new Foreign("ehmatus");
+        Foreign estonian5 = new Foreign("metssiga");
+        Foreign estonian6 = new Foreign("tibu");
+        Foreign estonian7 = new Foreign("koer");
+        Foreign estonian8 = new Foreign("runnak");
+        Foreign estonian9 = new Foreign("plahvatus");
+        Foreign estonian10 = new Foreign("voitlus");
+        Foreign estonian11 = new Foreign("lask");
+        Foreign estonian12 = new Foreign("karsta");
+        Foreign estonian13 = new Foreign("salta");
+        Foreign estonian14 = new Foreign("garsiai");
+        Foreign estonian15 = new Foreign("baugus");
+        Foreign estonian16 = new Foreign("nuostabu");
+
+
+        final Foreign [] FINNISH = {finnish1,finnish2,finnish3,finnish4,
+                finnish5,finnish6,finnish7,finnish8,finnish9,finnish10,
+                finnish11,finnish12,finnish13,finnish14,finnish15,finnish16};
+
+        final Foreign [] INDONESIAN = {indonesian1,indonesian2,indonesian3,indonesian4,
+                indonesian5,indonesian6,indonesian7,indonesian8,indonesian9,indonesian10,
+                indonesian11,indonesian12,indonesian13,indonesian14,indonesian15,indonesian16};
+
+        final Foreign [] HUNGARIAN = {hungarian1,hungarian2,hungarian3,hungarian4,
+                hungarian5,hungarian6,hungarian7,hungarian8,hungarian9,hungarian10,
+                hungarian11,hungarian12,hungarian13,hungarian14,hungarian15,hungarian16};
+
+        final Foreign [] ESTONIAN = {estonian1,estonian2,estonian3,estonian4,estonian4,
+                estonian5,estonian6,estonian7,estonian8,estonian9,estonian10,
+                estonian11,estonian12,estonian13,estonian14,estonian15,estonian16};
+
+        final Foreign [] CATALAN = {catalan1,catalan2,catalan3,catalan4,
+                catalan5, catalan6,catalan7,catalan8,catalan9,catalan10,
+                catalan11,catalan12, catalan13,catalan14,catalan15,catalan16};
 
     }
 
