@@ -108,7 +108,7 @@ void setup() {
   
   
     wpNoise = new WavePlayer(ac,440,Buffer.SINE);
-    spMusic = getSamplePlayer("test1.wav");
+    spMusic = getSamplePlayer("Mozart-Lacrimosa.wav");
     spCue = getSamplePlayer("test2.wav");
     gain.addInput(wpNoise);
     gain.addInput(spMusic);
@@ -189,8 +189,93 @@ void languageButton(int i) {
 
 
 
-void languageButton() {
+public class Word {
+    String name;
+    PartOfSpeech pos;
+    Emotion emo;
+   
+    public Word(String name, PartOfSpeech pos, Emotion emo) {
+        this. name = name;
+        this.pos = pos;
+        this.emo = emo;
+    }
+    public Word(String name, PartOfSpeech pos) {
+        this(name, pos, Emotion.NEGATIVE);
+    }
 }
+
+
+enum PartOfSpeech {ADJECTIVE, NOUN, VERB;}
+//enum Language{FINNISH, INDONESIAN, HUNGARIAN, ESTONIAN, CATALAN;}
+enum Emotion{POSITIVE, NEGATIVE, NEUTRAL;}
+
+public void buildWords() {
+    Word[] words = new Word[16];
+
+    Word word1 = new Word("affection", PartOfSpeech.NOUN);
+    Word word2 = new Word("anger", PartOfSpeech.NOUN);
+    Word word3 = new Word("love", PartOfSpeech.NOUN);
+    Word word4 = new Word("shook", PartOfSpeech.NOUN);
+    Word word5 = new Word("boar", PartOfSpeech.NOUN);
+    Word word6 = new Word("chicken", PartOfSpeech.NOUN);
+    Word word7 = new Word("dog", PartOfSpeech.NOUN);
+
+    Word word8 = new Word("attack", PartOfSpeech.VERB);
+    Word word9 = new Word("blast", PartOfSpeech.VERB);
+    Word word10 = new Word("fight", PartOfSpeech.VERB);
+    Word word11 = new Word("shot", PartOfSpeech.VERB);
+
+    Word word12 = new Word("hot", PartOfSpeech.ADJECTIVE);
+    Word word13 = new Word("cold", PartOfSpeech.ADJECTIVE);
+    Word word14 = new Word("loud", PartOfSpeech.ADJECTIVE);
+    Word word15 = new Word("scary", PartOfSpeech.ADJECTIVE);
+    Word word16 = new Word("excellent", PartOfSpeech.ADJECTIVE);
+
+    words[0] = word1;
+    words[1] = word2;
+    words[2] = word3;
+    words[3] = word4;
+    words[4] = word5;
+    words[5] = word6;
+    words[6] = word7;
+    words[7] = word8;
+    words[8] = word9;
+    words[9] = word10;
+    words[10] = word11;
+    words[11] = word12;
+    words[12] = word13;
+    words[13] = word14;
+    words[14] = word15;
+    words[15] = word16;
+
+    }
+    
+    
+    class Foreign{
+        String name;
+        int numOfSyllable;
+        // FINNISH, INDONESIAN, HUNGARIAN, ESTONIAN, CATALAN;
+        final Foreign [] FINNISH = new Foreign[16];
+        final Foreign [] INDONESIAN = new Foreign[16];
+        final Foreign [] HUGARIAN = new Foreign[16];
+        final Foreign [] ESTONIAN = new Foreign[16];
+        final Foreign [] CATALAN = new Foreign[16];
+
+        public Foreign(String name, int numOfSyllable) {
+            this.name = name;
+            this.numOfSyllable = numOfSyllable;
+        }
+
+        public Foreign(String name){
+            this(name, 1);
+        }
+
+
+
+
+
+    }
+
 
 
 /*
