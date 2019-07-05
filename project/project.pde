@@ -11,15 +11,30 @@ Button listButton;
 WavePlayer wpNoise;
 SamplePlayer spMusic;
 SamplePlayer spCue;
-
+ControlFont font;
+Word word;
+Foreign foreign;
+PFont p;
+int wordNum = -1;
+int languageNum = -1;
+ final Word[] WORDS = new Word[16];
+ final Foreign [] FINNISH = new Foreign[16];
+ final Foreign [] INDONESIAN = new Foreign[16];
+ final Foreign [] HUNGARIAN = new Foreign[16];
+ final Foreign [] ESTONIAN = new Foreign[16];
+ final Foreign [] CATALAN = new Foreign[16];
 
 void setup() {
   size(500,670);
   ac = new AudioContext();
   p5 = new ControlP5(this);
-   PFont p = createFont("Verdana",20); 
-   ControlFont font = new ControlFont(p);
+   //PFont
+   p = createFont("Verdana",20); 
+   //ControlFont
+   font = new ControlFont(p);
    p5.setFont(font);
+   buildWords();
+   buildForeign();
    
     glide = new Glide(ac,10,1);
     gain = new Gain(ac,1,glide);
@@ -155,36 +170,32 @@ void radioButton(int i) {
 
 
 void wordButton(int i) {
-    if (i == 1) {
-     
-    } else if (i == 2) {
-     
-    } else if (i == 3) {
-     
-    } else if (i == 4) {
-      
-    } else if (i == 5) {
-    
-    } else if (i == 6) {
-    
-    } else if (i == 7) {
-    
-    } else if (i == 8) {
-    
+    if(i == -1) {
+      word = null;
+    } else {
+      word = WORDS[i];
     }
+    wordNum = i;
+  
 }
 
 
 void languageButton(int i) {
-    if (i == 1) {
+    if (i == 0) {
+      foreign = FINNISH[wordNum]; 
      
+    } else if (i == 1) {
+     foreign = INDONESIAN[wordNum]; 
     } else if (i == 2) {
-     
+     foreign = HUNGARIAN[wordNum]; 
     } else if (i == 3) {
-     
+      foreign = ESTONIAN[wordNum]; 
     } else if (i == 4) {
-      
+      foreign = CATALAN [wordNum]; 
     } 
+    if(i == -1) {
+      foreign = null;
+    }
 }
 
 
@@ -206,12 +217,10 @@ public class Word {
 
 
 enum PartOfSpeech {ADJECTIVE, NOUN, VERB;}
-//enum Language{FINNISH, INDONESIAN, HUNGARIAN, ESTONIAN, CATALAN;}
 enum Emotion{POSITIVE, NEGATIVE, NEUTRAL;}
 
 public void buildWords() {
-    Word[] words = new Word[16];
-
+    
     Word word1 = new Word("affection", PartOfSpeech.NOUN);
     Word word2 = new Word("anger", PartOfSpeech.NOUN);
     Word word3 = new Word("love", PartOfSpeech.NOUN);
@@ -231,29 +240,29 @@ public void buildWords() {
     Word word15 = new Word("scary", PartOfSpeech.ADJECTIVE);
     Word word16 = new Word("excellent", PartOfSpeech.ADJECTIVE);
 
-    words[0] = word1;
-    words[1] = word2;
-    words[2] = word3;
-    words[3] = word4;
-    words[4] = word5;
-    words[5] = word6;
-    words[6] = word7;
-    words[7] = word8;
-    words[8] = word9;
-    words[9] = word10;
-    words[10] = word11;
-    words[11] = word12;
-    words[12] = word13;
-    words[13] = word14;
-    words[14] = word15;
-    words[15] = word16;
+    WORDS[0] = word1;
+   WORDS[1] = word2;
+    WORDS[2] = word3;
+   WORDS[3] = word4;
+   WORDS[4] = word5;
+   WORDS[5] = word6;
+    WORDS[6] = word7;
+    WORDS[7] = word8;
+    WORDS[8] = word9;
+    WORDS[9] = word10;
+    WORDS[10] = word11;
+   WORDS[11] = word12;
+    WORDS[12] = word13;
+    WORDS[13] = word14;
+    WORDS[14] = word15;
+    WORDS[15] = word16;
 
-    }
+}
     
     
-    class Foreign{
-        String name;
-        int numOfSyllable;
+    class Foreign {
+        public String name;
+        public int numOfSyllable;
         // CATALAN, INDONESIAN, FINNISH,  HUNGARIAN, ESTONIAN,
 
 
@@ -266,7 +275,35 @@ public void buildWords() {
             this(name, 1);
         }
 
-        Foreign catalan1 = new Foreign("afecte");
+       
+
+      /* final  Foreign [] FINNISH = {finnish1,finnish2,finnish3,finnish4,
+                finnish5,finnish6,finnish7,finnish8,finnish9,finnish10,
+                finnish11,finnish12,finnish13,finnish14,finnish15,finnish16};
+
+        final Foreign [] INDONESIAN = {indonesian1,indonesian2,indonesian3,indonesian4,
+                indonesian5,indonesian6,indonesian7,indonesian8,indonesian9,indonesian10,
+                indonesian11,indonesian12,indonesian13,indonesian14,indonesian15,indonesian16};
+
+        final Foreign [] HUNGARIAN = {hungarian1,hungarian2,hungarian3,hungarian4,
+                hungarian5,hungarian6,hungarian7,hungarian8,hungarian9,hungarian10,
+                hungarian11,hungarian12,hungarian13,hungarian14,hungarian15,hungarian16};
+
+        final Foreign [] ESTONIAN = {estonian1,estonian2,estonian3,estonian4,estonian4,
+                estonian5,estonian6,estonian7,estonian8,estonian9,estonian10,
+                estonian11,estonian12,estonian13,estonian14,estonian15,estonian16};
+
+        final Foreign [] CATALAN = {catalan1,catalan2,catalan3,catalan4,
+                catalan5, catalan6,catalan7,catalan8,catalan9,catalan10,
+                catalan11,catalan12, catalan13,catalan14,catalan15,catalan16};*/
+                
+     
+
+    }
+    
+    
+    void buildForeign() {
+       Foreign catalan1 = new Foreign("afecte");
         Foreign catalan2 = new Foreign("ira");
         Foreign catalan3 = new Foreign("amor");
         Foreign catalan4 = new Foreign("ensurt");
@@ -355,28 +392,103 @@ public void buildWords() {
         Foreign estonian14 = new Foreign("garsiai");
         Foreign estonian15 = new Foreign("baugus");
         Foreign estonian16 = new Foreign("nuostabu");
+        
+        FINNISH[0] = finnish1;
+        FINNISH[1] = finnish2;
+        FINNISH[2] = finnish3;
+        FINNISH[3] = finnish4;
+        FINNISH[4] = finnish5;
+        FINNISH[5] = finnish6;
+        FINNISH[6] = finnish7;
+        FINNISH[7] = finnish8;
+        FINNISH[8] = finnish9;
+        FINNISH[9] = finnish10;
+        FINNISH[10] = finnish11;
+        FINNISH[11] = finnish12;
+        FINNISH[12] = finnish13;
+        FINNISH[13] = finnish14;
+        FINNISH[14] = finnish15;
+        FINNISH[15] = finnish16;
+        
+        
+        INDONESIAN[0] = indonesian1;
+        INDONESIAN[1] = indonesian2;
+        INDONESIAN[2] = indonesian3;
+        INDONESIAN[3] = indonesian4;
+        INDONESIAN[4] = indonesian5;
+        INDONESIAN[5] = indonesian6;
+        INDONESIAN[6] = indonesian7;
+        INDONESIAN[7] = indonesian8;
+        INDONESIAN[8] = indonesian9;
+        INDONESIAN[9] = indonesian10;
+        INDONESIAN[10] = indonesian11;
+        INDONESIAN[11] = indonesian12;
+        INDONESIAN[12] = indonesian13;
+        INDONESIAN[13] = indonesian14;
+        INDONESIAN[14] = indonesian15;
+        INDONESIAN[15] = indonesian16;
+        
+        
+        HUNGARIAN[0] = hungarian1;
+        HUNGARIAN[1] = hungarian2;
+        HUNGARIAN[2] = hungarian3;
+        HUNGARIAN[3] = hungarian4;
+        HUNGARIAN[4] = hungarian5;
+        HUNGARIAN[5] = hungarian6;
+        HUNGARIAN[6] = hungarian7;
+        HUNGARIAN[7] = hungarian8;
+        HUNGARIAN[8] = hungarian9;
+        HUNGARIAN[9] = hungarian10;
+        HUNGARIAN[10] = hungarian11;
+        HUNGARIAN[11] = hungarian12;
+        HUNGARIAN[12] = hungarian13;
+        HUNGARIAN[13] = hungarian14;
+        HUNGARIAN[14] = hungarian15;
+        HUNGARIAN[15] = hungarian16;
+        
+        ESTONIAN[0] = estonian1;
+        ESTONIAN[1] = estonian2;
+        ESTONIAN[2] = estonian3;
+        ESTONIAN[3] = estonian4;
+        ESTONIAN[4] = estonian5;
+        ESTONIAN[5] = estonian6;
+        ESTONIAN[6] = estonian7;
+        ESTONIAN[7] = estonian8;
+        ESTONIAN[8] = estonian9;
+        ESTONIAN[9] = estonian10;
+        ESTONIAN[10] = estonian11;
+        ESTONIAN[11] = estonian12;
+        ESTONIAN[12] = estonian13;
+        ESTONIAN[13] = estonian14;
+        ESTONIAN[14] = estonian15;
+        ESTONIAN[15] = estonian16;
+        
+        
+        CATALAN[0] = catalan1;
+        CATALAN[1] = catalan2;
+        CATALAN[2] = catalan3;
+        CATALAN[3] = catalan4;
+        CATALAN[4] = catalan5;
+        CATALAN[5] = catalan6;
+        CATALAN[6] = catalan7;
+        CATALAN[7] = catalan8;
+        CATALAN[8] = catalan9;
+        CATALAN[9] = catalan10;
+        CATALAN[10] = catalan11;
+        CATALAN[11] = catalan12;
+        CATALAN[12] = catalan13;
+        CATALAN[13] = catalan14;
+        CATALAN[14] = catalan15;
+        CATALAN[15] = catalan16;
+        
+        
+        
+        
+        
+        
+        
 
-
-        final Foreign [] FINNISH = {finnish1,finnish2,finnish3,finnish4,
-                finnish5,finnish6,finnish7,finnish8,finnish9,finnish10,
-                finnish11,finnish12,finnish13,finnish14,finnish15,finnish16};
-
-        final Foreign [] INDONESIAN = {indonesian1,indonesian2,indonesian3,indonesian4,
-                indonesian5,indonesian6,indonesian7,indonesian8,indonesian9,indonesian10,
-                indonesian11,indonesian12,indonesian13,indonesian14,indonesian15,indonesian16};
-
-        final Foreign [] HUNGARIAN = {hungarian1,hungarian2,hungarian3,hungarian4,
-                hungarian5,hungarian6,hungarian7,hungarian8,hungarian9,hungarian10,
-                hungarian11,hungarian12,hungarian13,hungarian14,hungarian15,hungarian16};
-
-        final Foreign [] ESTONIAN = {estonian1,estonian2,estonian3,estonian4,estonian4,
-                estonian5,estonian6,estonian7,estonian8,estonian9,estonian10,
-                estonian11,estonian12,estonian13,estonian14,estonian15,estonian16};
-
-        final Foreign [] CATALAN = {catalan1,catalan2,catalan3,catalan4,
-                catalan5, catalan6,catalan7,catalan8,catalan9,catalan10,
-                catalan11,catalan12, catalan13,catalan14,catalan15,catalan16};
-
+    
     }
 
 
@@ -391,6 +503,19 @@ void Volume(int value) {
 
 void draw(){
   background(1,220,177);
+ 
+  fill(0);
+  textSize(20);
+  text("English ",20, 400);
+  text("Foreign Language",300,400);
+ 
+  if(word != null) {
+    text(word.name,40,430);
+    if (foreign != null) {
+      text(foreign.name, 320,430);
+    
+    }
+  } 
 }
          
          
