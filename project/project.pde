@@ -9,7 +9,7 @@ RadioButton radioButton;
 RadioButton wordButton;
 Button listButton;
 WavePlayer wpNoise;
-SamplePlayer spMusic;
+SamplePlayer spPronunciation;
 SamplePlayer spCue;
 ControlFont font;
 Word word;
@@ -23,6 +23,9 @@ int languageNum = -1;
  final Foreign [] HUNGARIAN = new Foreign[16];
  final Foreign [] ESTONIAN = new Foreign[16];
  final Foreign [] CATALAN = new Foreign[16];
+
+
+
 
 void setup() {
   size(500,670);
@@ -94,7 +97,7 @@ void setup() {
          .setSpacingColumn(200)
          .setSpacingRow(10)
          .addItem("Noise",0)
-         .addItem("Music",1)
+         .addItem("Pronunciation",1)
          .addItem("Audio Cue",2)
          .addItem("Slient",3)
          ;
@@ -123,16 +126,16 @@ void setup() {
   
   
     wpNoise = new WavePlayer(ac,440,Buffer.SINE);
-    spMusic = getSamplePlayer("Mozart-Lacrimosa.wav");
-    spCue = getSamplePlayer("test2.wav");
+    spPronunciation = getSamplePlayer("aspaceholder.wav");
+    spCue = getSamplePlayer("aspaceholder.wav");
     gain.addInput(wpNoise);
-    gain.addInput(spMusic);
+    gain.addInput(spPronunciation);
     gain.addInput(spCue);
     
     ac.out.addInput(gain);
     wpNoise.pause(true);
     spCue.pause(true);
-    spMusic.pause(true);
+    spPronunciation.pause(true);
     
     ac.start();
 }     
@@ -141,28 +144,48 @@ void setup() {
 void radioButton(int i) {
     if (i == 0 ) {
       //noise
-      spMusic.pause(true);
+      spPronunciation.pause(true);
       spCue.pause(true);
       wpNoise.start();
       
        
     } else if (i == 1 ) {
-      //music
-      spCue.pause(true);
-      wpNoise.pause(true);
-      spMusic.start();
+      //pronunciation
+       gain.clearInputConnections();
+      
+       if (word != null && foreign != null) {
+          String s = foreign.name + ".mp3";
+          spPronunciation = getSamplePlayer(s);
+          gain.addInput(spPronunciation);
+          spCue.pause(true);
+          wpNoise.pause(true);
+          spPronunciation.start();
+       } else if (word != null && foreign == null) {
+         
+          String s = word.name + ".mp3";
+          spPronunciation = getSamplePlayer(s);
+          gain.addInput(spPronunciation);
+          spCue.pause(true);
+          wpNoise.pause(true);
+          spPronunciation.start();
+       } else {
+          spCue.pause(true);
+          wpNoise.pause(true);
+          spPronunciation.pause(true);
+       }
+      
       
     } else if (i == 2) {
       //cue
       wpNoise.pause(true);
-      spMusic.pause(true);
+      spPronunciation.pause(true);
       spCue.start();
      
     } else if (i == 3|| i == -1 ) {
        //silent
       spCue.pause(true);
       wpNoise.pause(true);
-      spMusic.pause(true);
+      spPronunciation.pause(true);
     }
 }
 
@@ -170,17 +193,34 @@ void radioButton(int i) {
 
 
 void wordButton(int i) {
-    if(i == -1) {
+  wordNum = i;  
+  if(i == -1) {
       word = null;
     } else {
       word = WORDS[i];
+        if (languageNum == 0) {
+          foreign = FINNISH[wordNum]; 
+         
+        } else if ( languageNum == 1) {
+         foreign = INDONESIAN[wordNum]; 
+        } else if (languageNum == 2) {
+         foreign = HUNGARIAN[wordNum]; 
+        } else if (languageNum == 3) {
+          foreign = ESTONIAN[wordNum]; 
+        } else if (languageNum == 4) {
+          foreign = CATALAN [wordNum]; 
+        } 
+        if(i == -1) {
+          foreign = null;
+        }
     }
-    wordNum = i;
+    
   
 }
 
 
 void languageButton(int i) {
+    languageNum = i ;
     if (i == 0) {
       foreign = FINNISH[wordNum]; 
      
@@ -197,6 +237,10 @@ void languageButton(int i) {
       foreign = null;
     }
 }
+
+
+
+
 
 
 
@@ -260,7 +304,7 @@ public void buildWords() {
 }
     
     
-    class Foreign {
+class Foreign {
         public String name;
         public int numOfSyllable;
         // CATALAN, INDONESIAN, FINNISH,  HUNGARIAN, ESTONIAN,
@@ -299,10 +343,10 @@ public void buildWords() {
                 
      
 
-    }
+}
     
-    
-    void buildForeign() {
+
+void buildForeign() {
        Foreign catalan1 = new Foreign("afecte");
         Foreign catalan2 = new Foreign("ira");
         Foreign catalan3 = new Foreign("amor");
@@ -480,16 +524,9 @@ public void buildWords() {
         CATALAN[13] = catalan14;
         CATALAN[14] = catalan15;
         CATALAN[15] = catalan16;
-        
-        
-        
-        
-        
-        
-        
-
+  
     
-    }
+}
 
 
 
@@ -507,7 +544,7 @@ void draw(){
   fill(0);
   textSize(20);
   text("English ",20, 400);
-  text("Foreign Language",300,400);
+  text("Foreign Meaning",300,400);
  
   if(word != null) {
     text(word.name,40,430);
