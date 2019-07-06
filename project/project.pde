@@ -149,8 +149,7 @@ void radioButton(int i) {
       //noise
       wpNoise = new WavePlayer(ac,440,Buffer.SINE);
       gain.addInput(wpNoise);
-      spPronunciation.pause(true);
-      spCue.pause(true);
+    
       wpNoise.start();
       
        
@@ -162,20 +161,17 @@ void radioButton(int i) {
           String s = foreign.name + ".mp3";
           spPronunciation = getSamplePlayer(s);
           gain.addInput(spPronunciation);
-          spCue.pause(true);
-          wpNoise.pause(true);
+          
           spPronunciation.start();
        } else if (word != null && foreign == null) {
          
           String s = word.name + ".mp3";
           spPronunciation = getSamplePlayer(s);
           gain.addInput(spPronunciation);
-          spCue.pause(true);
-          wpNoise.pause(true);
+         
           spPronunciation.start();
        } else {
-          spCue.pause(true);
-          wpNoise.pause(true);
+         
           spPronunciation.pause(true);
        }
       
@@ -183,17 +179,29 @@ void radioButton(int i) {
     } else if (i == 2) {
       //cue
       //gain.addInput();
-      wpNoise.pause(true);
-      spPronunciation.pause(true);
-      spCue.start();
+      //wpNoise.pause(true);
+      //spPronunciation.pause(true);
+      //spCue.start();
+      
+      
+      if (word != null && foreign != null) {
+          String s = foreign.name + "-mod.mp3";
+          spCue = getSamplePlayer(s);
+          gain.addInput(spCue);
+          spCue.start();
+       } else if (word != null && foreign == null) {
+         
+          String s = word.name + "-mod.mp3";
+          spCue = getSamplePlayer(s);
+          gain.addInput(spCue);
+          spCue.start();
+       } else {
+          spCue.pause(true);
+       }
      
     } else if (i == 3|| i == -1 ) {
        //silent
-       
-      
       spCue.pause(true);
-      wpNoise.pause(true);
-      spPronunciation.pause(true);
     }
  
 }
@@ -230,20 +238,22 @@ void wordButton(int i) {
 
 void languageButton(int i) {
     languageNum = i ;
-    if (i == 0) {
-      foreign = FINNISH[wordNum]; 
-     
-    } else if (i == 1) {
-     foreign = INDONESIAN[wordNum]; 
-    } else if (i == 2) {
-     foreign = HUNGARIAN[wordNum]; 
-    } else if (i == 3) {
-      foreign = ESTONIAN[wordNum]; 
-    } else if (i == 4) {
-      foreign = CATALAN [wordNum]; 
-    } 
-    if(i == -1) {
-      foreign = null;
+    if (wordNum != -1) { 
+        if (i == 0) {
+          foreign = FINNISH[wordNum]; 
+         
+        } else if (i == 1) {
+         foreign = INDONESIAN[wordNum]; 
+        } else if (i == 2) {
+         foreign = HUNGARIAN[wordNum]; 
+        } else if (i == 3) {
+          foreign = ESTONIAN[wordNum]; 
+        } else if (i == 4) {
+          foreign = CATALAN [wordNum]; 
+        } 
+        if(i == -1) {
+          foreign = null;
+        }
     }
      stateSwitch();
 }
@@ -360,7 +370,7 @@ void buildForeign() {
        Foreign catalan1 = new Foreign("afecte");
         Foreign catalan2 = new Foreign("ira");
         Foreign catalan3 = new Foreign("amor");
-        Foreign catalan4 = new Foreign("ensurt");
+        Foreign catalan4 = new Foreign("insurt");
         Foreign catalan5 = new Foreign("senglar");
         Foreign catalan6 = new Foreign("pollastre");
         Foreign catalan7 = new Foreign("gos");
@@ -561,6 +571,7 @@ void stateSwitch(){
       
        if (word != null && foreign != null) {
           String s = foreign.name + ".mp3";
+          print(s);
           spPronunciation = getSamplePlayer(s);
           gain.addInput(spPronunciation);
           spCue.pause(true);
@@ -583,9 +594,23 @@ void stateSwitch(){
       
     } else if (backgroundNum == 2) {
       //cue
-      wpNoise.pause(true);
-      spPronunciation.pause(true);
-      spCue.start();
+         if (word != null && foreign != null) {
+           
+         
+              String s = foreign.name + "-mod.mp3";
+                print(s);
+              spCue = getSamplePlayer(s);
+              gain.addInput(spCue);
+              spCue.start();
+           } else if (word != null && foreign == null) {
+             
+              String s = word.name + "-mod.mp3";
+              spCue = getSamplePlayer(s);
+              gain.addInput(spCue);
+              spCue.start();
+           } else {
+              spCue.pause(true);
+           }
      
     } else if (backgroundNum == 3|| backgroundNum == -1 ) {
        //silent
