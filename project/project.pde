@@ -17,6 +17,7 @@ Foreign foreign;
 PFont p;
 int wordNum = -1;
 int languageNum = -1;
+int backgroundNum = -1;
  final Word[] WORDS = new Word[16];
  final Foreign [] FINNISH = new Foreign[16];
  final Foreign [] INDONESIAN = new Foreign[16];
@@ -142,8 +143,12 @@ void setup() {
 
 
 void radioButton(int i) {
-    if (i == 0 ) {
+  backgroundNum = i; 
+  gain.clearInputConnections();
+  if (i == 0 ) {
       //noise
+      wpNoise = new WavePlayer(ac,440,Buffer.SINE);
+      gain.addInput(wpNoise);
       spPronunciation.pause(true);
       spCue.pause(true);
       wpNoise.start();
@@ -151,7 +156,7 @@ void radioButton(int i) {
        
     } else if (i == 1 ) {
       //pronunciation
-       gain.clearInputConnections();
+       
       
        if (word != null && foreign != null) {
           String s = foreign.name + ".mp3";
@@ -177,16 +182,20 @@ void radioButton(int i) {
       
     } else if (i == 2) {
       //cue
+      //gain.addInput();
       wpNoise.pause(true);
       spPronunciation.pause(true);
       spCue.start();
      
     } else if (i == 3|| i == -1 ) {
        //silent
+       
+      
       spCue.pause(true);
       wpNoise.pause(true);
       spPronunciation.pause(true);
     }
+ 
 }
 
 
@@ -215,7 +224,7 @@ void wordButton(int i) {
         }
     }
     
-  
+   stateSwitch();
 }
 
 
@@ -236,6 +245,7 @@ void languageButton(int i) {
     if(i == -1) {
       foreign = null;
     }
+     stateSwitch();
 }
 
 
@@ -268,14 +278,14 @@ public void buildWords() {
     Word word1 = new Word("affection", PartOfSpeech.NOUN);
     Word word2 = new Word("anger", PartOfSpeech.NOUN);
     Word word3 = new Word("love", PartOfSpeech.NOUN);
-    Word word4 = new Word("shook", PartOfSpeech.NOUN);
+    Word word4 = new Word("shock", PartOfSpeech.NOUN);
     Word word5 = new Word("boar", PartOfSpeech.NOUN);
     Word word6 = new Word("chicken", PartOfSpeech.NOUN);
     Word word7 = new Word("dog", PartOfSpeech.NOUN);
 
     Word word8 = new Word("attack", PartOfSpeech.VERB);
     Word word9 = new Word("blast", PartOfSpeech.VERB);
-    Word word10 = new Word("fight", PartOfSpeech.VERB);
+    Word word10 = new Word("beat", PartOfSpeech.VERB);
     Word word11 = new Word("shot", PartOfSpeech.VERB);
 
     Word word12 = new Word("hot", PartOfSpeech.ADJECTIVE);
@@ -369,9 +379,9 @@ void buildForeign() {
         Foreign indonesian2 = new Foreign("kemarahan");
         Foreign indonesian3 = new Foreign("cinta");
         Foreign indonesian4 = new Foreign("kepanikan");
-        Foreign indonesian5 = new Foreign("babi hutan");
+        Foreign indonesian5 = new Foreign("babihutan");
         Foreign indonesian6 = new Foreign("ayam");
-        Foreign indonesian7 = new Foreign("anjiny");
+        Foreign indonesian7 = new Foreign("anjing");
         Foreign indonesian8 = new Foreign("serangan");
         Foreign indonesian9 = new Foreign("ledakan");
         Foreign indonesian10 = new Foreign("pertarungan");
@@ -380,7 +390,7 @@ void buildForeign() {
         Foreign indonesian13 = new Foreign("dingin");
         Foreign indonesian14 = new Foreign("keras");
         Foreign indonesian15 = new Foreign("mengerikan");
-        Foreign indonesian16 = new Foreign("luar biasa");
+        Foreign indonesian16 = new Foreign("luarbiasa");
 
 
         Foreign finnish1 = new Foreign("kiintymys");
@@ -401,7 +411,7 @@ void buildForeign() {
         Foreign finnish16 = new Foreign("mahtara");
         
 
-        Foreign hungarian1 = new Foreign("vanzalan");
+        Foreign hungarian1 = new Foreign("vanzalom");
         Foreign hungarian2 = new Foreign("harag");
         Foreign hungarian3 = new Foreign("szerelem");
         Foreign hungarian4 = new Foreign("ijedtseg");
@@ -412,11 +422,11 @@ void buildForeign() {
         Foreign hungarian9 = new Foreign("robbanas");
         Foreign hungarian10 = new Foreign("kuzdelem");
         Foreign hungarian11 = new Foreign("loves");
-        Foreign hungarian12 = new Foreign("forro");
+        Foreign hungarian12 = new Foreign("hoseg");
         Foreign hungarian13 = new Foreign("hideg");
         Foreign hungarian14 = new Foreign("hangos");
         Foreign hungarian15 = new Foreign("ijedos");
-        Foreign hungarian16 = new Foreign("fnatasztikus");
+        Foreign hungarian16 = new Foreign("fantasztikus");
 
 
 
@@ -431,11 +441,11 @@ void buildForeign() {
         Foreign estonian9 = new Foreign("plahvatus");
         Foreign estonian10 = new Foreign("voitlus");
         Foreign estonian11 = new Foreign("lask");
-        Foreign estonian12 = new Foreign("karsta");
-        Foreign estonian13 = new Foreign("salta");
-        Foreign estonian14 = new Foreign("garsiai");
-        Foreign estonian15 = new Foreign("baugus");
-        Foreign estonian16 = new Foreign("nuostabu");
+        Foreign estonian12 = new Foreign("kuum");
+        Foreign estonian13 = new Foreign("kulm");
+        Foreign estonian14 = new Foreign("valjusti");
+        Foreign estonian15 = new Foreign("hirmutav");
+        Foreign estonian16 = new Foreign("suureparane");
         
         FINNISH[0] = finnish1;
         FINNISH[1] = finnish2;
@@ -535,6 +545,56 @@ void Volume(int value) {
   glide.setValue(value);
 }*/
 
+
+
+void stateSwitch(){
+   if (backgroundNum == 0 ) {
+      //noise
+      spPronunciation.pause(true);
+      spCue.pause(true);
+      wpNoise.start();
+      
+       
+    } else if (backgroundNum == 1 ) {
+      //pronunciation
+       gain.clearInputConnections();
+      
+       if (word != null && foreign != null) {
+          String s = foreign.name + ".mp3";
+          spPronunciation = getSamplePlayer(s);
+          gain.addInput(spPronunciation);
+          spCue.pause(true);
+          wpNoise.pause(true);
+          spPronunciation.start();
+       } else if (word != null && foreign == null) {
+         
+          String s = word.name + ".mp3";
+          spPronunciation = getSamplePlayer(s);
+          gain.addInput(spPronunciation);
+          spCue.pause(true);
+          wpNoise.pause(true);
+          spPronunciation.start();
+       } else {
+          spCue.pause(true);
+          wpNoise.pause(true);
+          spPronunciation.pause(true);
+       }
+      
+      
+    } else if (backgroundNum == 2) {
+      //cue
+      wpNoise.pause(true);
+      spPronunciation.pause(true);
+      spCue.start();
+     
+    } else if (backgroundNum == 3|| backgroundNum == -1 ) {
+       //silent
+      spCue.pause(true);
+      wpNoise.pause(true);
+      spPronunciation.pause(true);
+    }
+  
+}
 
 
 
