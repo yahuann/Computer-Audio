@@ -8,7 +8,7 @@ Glide glide;
 RadioButton radioButton;
 RadioButton wordButton;
 Button listButton;
-WavePlayer wpNoise;
+SamplePlayer spNoise;
 SamplePlayer spPronunciation;
 SamplePlayer spCue;
 ControlFont font;
@@ -44,7 +44,7 @@ void setup() {
     gain = new Gain(ac,1,glide);
 
    p5.addRadioButton("wordButton")
-         .setPosition(20,240)
+         .setPosition(20,290)
          .setSize(20,20)
          .setColorForeground(color(120))
          .setColorActive(color(200,18,24))
@@ -116,25 +116,25 @@ void setup() {
        
          
 
-   /* p5.addSlider("Volume")
+    p5.addSlider("Volume")
      .setColorLabel(color(0))
-     .setPosition(20,150)
+     .setPosition(20,230)
      .setSize(200,20)
      .setRange(0,100)
      .setValue(5)
-     ;   */
+     ;   
      
   
   
-    wpNoise = new WavePlayer(ac,440,Buffer.SINE);
+    spNoise = getSamplePlayer("noise.wav");
     spPronunciation = getSamplePlayer("aspaceholder.wav");
     spCue = getSamplePlayer("aspaceholder.wav");
-    gain.addInput(wpNoise);
+    gain.addInput(spNoise);
     gain.addInput(spPronunciation);
     gain.addInput(spCue);
     
     ac.out.addInput(gain);
-    wpNoise.pause(true);
+    spNoise.pause(true);
     spCue.pause(true);
     spPronunciation.pause(true);
     
@@ -147,10 +147,10 @@ void radioButton(int i) {
   gain.clearInputConnections();
   if (i == 0 ) {
       //noise
-      wpNoise = new WavePlayer(ac,440,Buffer.SINE);
-      gain.addInput(wpNoise);
+      spNoise = getSamplePlayer("noise.wav");
+      gain.addInput(spNoise);
     
-      wpNoise.start();
+      spNoise.start();
       
        
     } else if (i == 1 ) {
@@ -179,7 +179,7 @@ void radioButton(int i) {
     } else if (i == 2) {
       //cue
       //gain.addInput();
-      //wpNoise.pause(true);
+      //spNoise.pause(true);
       //spPronunciation.pause(true);
       //spCue.start();
       
@@ -550,10 +550,10 @@ void buildForeign() {
 
 
 
-/*
+
 void Volume(int value) {
   glide.setValue(value);
-}*/
+}
 
 
 
@@ -562,7 +562,7 @@ void stateSwitch(){
       //noise
       spPronunciation.pause(true);
       spCue.pause(true);
-      wpNoise.start();
+      spNoise.start();
       
        
     } else if (backgroundNum == 1 ) {
@@ -575,7 +575,7 @@ void stateSwitch(){
           spPronunciation = getSamplePlayer(s);
           gain.addInput(spPronunciation);
           spCue.pause(true);
-          wpNoise.pause(true);
+          spNoise.pause(true);
           spPronunciation.start();
        } else if (word != null && foreign == null) {
          
@@ -583,11 +583,11 @@ void stateSwitch(){
           spPronunciation = getSamplePlayer(s);
           gain.addInput(spPronunciation);
           spCue.pause(true);
-          wpNoise.pause(true);
+          spNoise.pause(true);
           spPronunciation.start();
        } else {
           spCue.pause(true);
-          wpNoise.pause(true);
+          spNoise.pause(true);
           spPronunciation.pause(true);
        }
       
@@ -615,7 +615,7 @@ void stateSwitch(){
     } else if (backgroundNum == 3|| backgroundNum == -1 ) {
        //silent
       spCue.pause(true);
-      wpNoise.pause(true);
+      spNoise.pause(true);
       spPronunciation.pause(true);
     }
   
@@ -628,13 +628,13 @@ void draw(){
  
   fill(0);
   textSize(20);
-  text("English ",20, 400);
-  text("Foreign Meaning",300,400);
+  text("English ",20, 440);
+  text("Foreign Meaning",300,440);
  
   if(word != null) {
-    text(word.name,40,430);
+    text(word.name,40,480);
     if (foreign != null) {
-      text(foreign.name, 320,430);
+      text(foreign.name, 320,480);
     
     }
   } 
