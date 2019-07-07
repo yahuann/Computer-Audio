@@ -64,7 +64,7 @@ void setup() {
          .addItem("Word10",9)
          .addItem("Word11",10)
          .addItem("Word12",11)
-         .addItem("Word13",1)
+         .addItem("Word13",12)
          .addItem("Word14",13)
          .addItem("Word15",14)
          .addItem("Word16",15)
@@ -129,6 +129,10 @@ void setup() {
     spNoise = getSamplePlayer("noise.wav");
     spPronunciation = getSamplePlayer("aspaceholder.wav");
     spCue = getSamplePlayer("aspaceholder.wav");
+    spNoise.setLoopType(SamplePlayer.LoopType.LOOP_FORWARDS);
+    spPronunciation.setLoopType(SamplePlayer.LoopType.LOOP_FORWARDS);
+    spCue.setLoopType(SamplePlayer.LoopType.LOOP_FORWARDS);
+    
     gain.addInput(spNoise);
     gain.addInput(spPronunciation);
     gain.addInput(spCue);
@@ -148,6 +152,7 @@ void radioButton(int i) {
   if (i == 0 ) {
       //noise
       spNoise = getSamplePlayer("noise.wav");
+      spNoise.setLoopType(SamplePlayer.LoopType.LOOP_FORWARDS);
       gain.addInput(spNoise);
     
       spNoise.start();
@@ -203,7 +208,7 @@ void radioButton(int i) {
        //silent
       spCue.pause(true);
     }
- 
+   stateSwitch();
 }
 
 
@@ -558,21 +563,26 @@ void Volume(int value) {
 
 
 void stateSwitch(){
-   if (backgroundNum == 0 ) {
+  gain.clearInputConnections();
+  if (backgroundNum == 0 ) {
       //noise
       spPronunciation.pause(true);
       spCue.pause(true);
+      spNoise = getSamplePlayer("noise.wav");
+      spNoise.setLoopType(SamplePlayer.LoopType.LOOP_FORWARDS);
+      gain.addInput(spNoise);
       spNoise.start();
       
        
     } else if (backgroundNum == 1 ) {
       //pronunciation
-       gain.clearInputConnections();
+       
       
        if (word != null && foreign != null) {
           String s = foreign.name + ".mp3";
           print(s);
           spPronunciation = getSamplePlayer(s);
+          spPronunciation.setLoopType(SamplePlayer.LoopType.LOOP_FORWARDS);
           gain.addInput(spPronunciation);
           spCue.pause(true);
           spNoise.pause(true);
@@ -581,6 +591,7 @@ void stateSwitch(){
          
           String s = word.name + ".mp3";
           spPronunciation = getSamplePlayer(s);
+          spPronunciation.setLoopType(SamplePlayer.LoopType.LOOP_FORWARDS);
           gain.addInput(spPronunciation);
           spCue.pause(true);
           spNoise.pause(true);
@@ -600,12 +611,15 @@ void stateSwitch(){
               String s = foreign.name + "-mod.mp3";
                 print(s);
               spCue = getSamplePlayer(s);
+             
+              spCue.setLoopType(SamplePlayer.LoopType.LOOP_FORWARDS);
               gain.addInput(spCue);
               spCue.start();
            } else if (word != null && foreign == null) {
              
               String s = word.name + "-mod.mp3";
               spCue = getSamplePlayer(s);
+              spCue.setLoopType(SamplePlayer.LoopType.LOOP_FORWARDS);
               gain.addInput(spCue);
               spCue.start();
            } else {
