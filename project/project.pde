@@ -416,9 +416,9 @@ void buildForeign() {
         Foreign finnish11 = new Foreign("laukaus");
         Foreign finnish12 = new Foreign("kuuma");
         Foreign finnish13 = new Foreign("kulma");
-        Foreign finnish14 = new Foreign("aanekos");
+        Foreign finnish14 = new Foreign("aanekas");
         Foreign finnish15 = new Foreign("pelottava");
-        Foreign finnish16 = new Foreign("mahtara");
+        Foreign finnish16 = new Foreign("mahtava");
         
 
         Foreign hungarian1 = new Foreign("vanzalom");
