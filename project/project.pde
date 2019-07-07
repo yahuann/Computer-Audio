@@ -382,7 +382,7 @@ void buildForeign() {
         Foreign catalan13 = new Foreign("fred");
         Foreign catalan14 = new Foreign("fort");
         Foreign catalan15 = new Foreign("por");
-        Foreign catalan16 = new Foreign("impressionant");
+        Foreign catalan16 = new Foreign("impressionnant");
 
 
         Foreign indonesian1 = new Foreign("sukacita");
@@ -407,7 +407,7 @@ void buildForeign() {
         Foreign finnish2 = new Foreign("viha");
         Foreign finnish3 = new Foreign("rakkaus");
         Foreign finnish4 = new Foreign("sokki");
-        Foreign finnish5 = new Foreign("rillisika");
+        Foreign finnish5 = new Foreign("villisika");
         Foreign finnish6 = new Foreign("kana");
         Foreign finnish7 = new Foreign("koira");
         Foreign finnish8 = new Foreign("hyokkays");
@@ -415,7 +415,7 @@ void buildForeign() {
         Foreign finnish10 = new Foreign("kamppailu");
         Foreign finnish11 = new Foreign("laukaus");
         Foreign finnish12 = new Foreign("kuuma");
-        Foreign finnish13 = new Foreign("kylma");
+        Foreign finnish13 = new Foreign("kulma");
         Foreign finnish14 = new Foreign("aanekos");
         Foreign finnish15 = new Foreign("pelottava");
         Foreign finnish16 = new Foreign("mahtara");
