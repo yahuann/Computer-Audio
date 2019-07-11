@@ -7,7 +7,8 @@ Gain gain;
 Glide glide;
 RadioButton radioButton;
 RadioButton wordButton;
-Button listButton;
+RadioButton listButton;
+RadioButton languageButton;
 SamplePlayer spNoise;
 SamplePlayer spPronunciation;
 SamplePlayer spCue;
@@ -104,14 +105,23 @@ void setup() {
          ;
          
          
-   /* p5.addButton("listButton") {
-        .setPosition(20,80)
-         .setSize(30,20)
+  /*  p5.addRadioButton("listButton") 
+        .setPosition(20,540)
+         .setSize(10,10)
          .setColorForeground(color(120))
          .setColorActive(color(200,18,24))
          .setColorLabel(color(0))
-  
-    }*/
+         .setItemsPerRow(1)
+         .setSpacingColumn(100)
+         .setSpacingRow(10)
+         .addItem("L1Fin",0)
+         .addItem("L2Indo",1)
+         .addItem("L3Hun",2)
+         .addItem("L4Eston",3)
+         .addItem("L5Cat",4)
+         ;
+  */
+    
     
        
          
@@ -422,7 +432,7 @@ void buildForeign() {
         Foreign finnish12 = new Foreign("kuuma");
         Foreign finnish13 = new Foreign("kulma");
         Foreign finnish14 = new Foreign("aanekas");
-        Foreign finnish15 = new Foreign("pelottava");
+        Foreign finnish15 = new Foreign("pelorrava");
         Foreign finnish16 = new Foreign("mahtava");
         
 
@@ -582,16 +592,17 @@ void stateSwitch(){
           String s = foreign.name + ".mp3";
           print(s);
           spPronunciation = getSamplePlayer(s);
-          spPronunciation.setLoopType(SamplePlayer.LoopType.LOOP_FORWARDS);
+        //  spPronunciation.setLoopType(SamplePlayer.LoopType.LOOP_FORWARDS);
           gain.addInput(spPronunciation);
           spCue.pause(true);
           spNoise.pause(true);
           spPronunciation.start();
+           
        } else if (word != null && foreign == null) {
          
           String s = word.name + ".mp3";
           spPronunciation = getSamplePlayer(s);
-          spPronunciation.setLoopType(SamplePlayer.LoopType.LOOP_FORWARDS);
+         // spPronunciation.setLoopType(SamplePlayer.LoopType.LOOP_FORWARDS);
           gain.addInput(spPronunciation);
           spCue.pause(true);
           spNoise.pause(true);
@@ -612,14 +623,14 @@ void stateSwitch(){
                 print(s);
               spCue = getSamplePlayer(s);
              
-              spCue.setLoopType(SamplePlayer.LoopType.LOOP_FORWARDS);
+             // spCue.setLoopType(SamplePlayer.LoopType.LOOP_FORWARDS);
               gain.addInput(spCue);
               spCue.start();
            } else if (word != null && foreign == null) {
              
               String s = word.name + "-mod.mp3";
               spCue = getSamplePlayer(s);
-              spCue.setLoopType(SamplePlayer.LoopType.LOOP_FORWARDS);
+             // spCue.setLoopType(SamplePlayer.LoopType.LOOP_FORWARDS);
               gain.addInput(spCue);
               spCue.start();
            } else {
@@ -634,6 +645,31 @@ void stateSwitch(){
     }
   
 }
+
+void listButton(int i) {
+    languageButton(i);
+  if(i == 0) {
+  //finnish
+  
+          
+  } else if (i == 1) {
+  //indoesian
+      
+  } else if (i == 2) {
+  //hungurian
+        
+
+              
+  } else if (i == 3) {
+  //estonian
+  
+  }else if (i == 4) {
+  //cat
+      
+
+  }
+}
+  
 
 
 
