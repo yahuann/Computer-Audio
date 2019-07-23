@@ -592,7 +592,7 @@ void stateSwitch(){
           String s = foreign.name + ".mp3";
           print(s);
           spPronunciation = getSamplePlayer(s);
-        //  spPronunciation.setLoopType(SamplePlayer.LoopType.LOOP_FORWARDS);
+     
           gain.addInput(spPronunciation);
           spCue.pause(true);
           spNoise.pause(true);
@@ -623,14 +623,13 @@ void stateSwitch(){
                 print(s);
               spCue = getSamplePlayer(s);
              
-             // spCue.setLoopType(SamplePlayer.LoopType.LOOP_FORWARDS);
               gain.addInput(spCue);
               spCue.start();
            } else if (word != null && foreign == null) {
              
               String s = word.name + "-mod.mp3";
               spCue = getSamplePlayer(s);
-             // spCue.setLoopType(SamplePlayer.LoopType.LOOP_FORWARDS);
+       
               gain.addInput(spCue);
               spCue.start();
            } else {
@@ -647,7 +646,7 @@ void stateSwitch(){
 }
 
 void listButton(int i) {
-    languageButton(i);
+  languageButton(i);
   if(i == 0) {
   //finnish
   
